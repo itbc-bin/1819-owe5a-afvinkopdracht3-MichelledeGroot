@@ -1,5 +1,3 @@
-package afvink3;
-
 /**
  * Race class
  * Class Race maakt gebruik van de class Paard
@@ -41,17 +39,17 @@ import javax.swing.*;
 public class Race extends JFrame implements ActionListener {
 
     /** declaratie van variabelen */
-    /* (1) Declareer hier een constante int met de naam lengte en een waarde van 250 */
-    /* (2) Declareer hier h1, h2, h3, h4 van het type Paard
-     *  Deze paarden instantieer je later in het programma
-     */
-    /* (3) Declareer een button met de naam button van het type JButton */
+    static int lengte = 250; // (1) Declareer hier een constante int met de naam lengte en een waarde van 250 */
+    private Paard h1, h2, h3, h4;    // (2) Declareer hier h1, h2, h3, h4 van het type Paard
+                            //  Deze paarden instantieer je later in het programma
+    private JButton button; //(3) Declareer een button met de naam button van het type JButton
     private JPanel panel;
+    private JLabel label1,label2,label3,label4;
 
     /** Applicatie - main functie voor runnen applicatie */
     public static void main(String[] args) {
         Race frame = new Race();
-        /* (4) Geef het frame een breedte van 400 en hoogte van 140 */
+        frame.setSize(400,150);/* (4) Geef het frame een breedte van 400 en hoogte van 150 */
         frame.createGUI();
         frame.setVisible(true);
     }
@@ -61,14 +59,17 @@ public class Race extends JFrame implements ActionListener {
     private void startRace(Graphics g) {
         panel.setBackground(Color.white);
         /** Tekenen van de finish streep */
-        /* (5) Geef de finish streep een rode kleur */
+        g.setColor(Color.red);/* (5) Geef de finish streep een rode kleur */
         g.fillRect(lengte, 0, 3, 100);
         /**(6) Creatie van 4 paarden
          * Dit is een instantiering van de 4 paard objecten
          * Bij de instantiering geef je de paarden een naam en een kleur mee
          * Kijk in de class Paard hoe je de paarden
-         * kunt initialiseren.
-         */
+         * kunt initialiseren. **/
+        h1 = new Paard("Toska", Color.black);
+        h2 = new Paard("Moonshine",Color.cyan);
+        h3 = new Paard("Amerigo", Color.pink);
+        h4 = new Paard("Vlekje",Color.gray);
         /** Loop tot een paard over de finish is*/
         while (h1.getAfstand() < lengte
                 && h2.getAfstand() < lengte
@@ -86,6 +87,11 @@ public class Race extends JFrame implements ActionListener {
             /* (8) Voeg hier code in om 4 paarden te tekenen die rennen
              * Dus een call van de methode tekenPaard
              */
+            pauzeer(1000);
+            tekenPaard(g,h1);
+            tekenPaard(g,h2);
+            tekenPaard(g,h3);
+            tekenPaard(g,h4);
         }
         /** Kijk welk paard gewonnen heeft
          */
@@ -112,6 +118,7 @@ public class Race extends JFrame implements ActionListener {
         panel.setPreferredSize(new Dimension(300, 100));
         panel.setBackground(Color.white);
         window.add(panel);
+        button = new JButton("Run!");
         /* (9) Zet hier de tekst Run! op de button */
         window.add(button);
         button.addActionListener(this);
@@ -127,7 +134,7 @@ public class Race extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         Graphics paper = panel.getGraphics();
         /* (10) Roep hier de methode startrace aan met de juiste parameterisering */
-        startRace (paper);
+        startRace(paper);
     }
 
     /** Pauzeer gedurende x millisecondes*/

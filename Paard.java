@@ -1,5 +1,3 @@
-package afvink3;
-
 /**
  * Paard class
  *
