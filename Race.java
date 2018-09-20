@@ -34,13 +34,14 @@
  */
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.FlowLayout;
 import javax.swing.*;
 
 public class Race extends JFrame implements ActionListener {
 
     /** declaratie van variabelen */
     static int lengte = 250; // (1) Declareer hier een constante int met de naam lengte en een waarde van 250 */
-    private Paard h1, h2, h3, h4;    // (2) Declareer hier h1, h2, h3, h4 van het type Paard
+    private Paard h1, h2, h3, h4, h5;    // (2) Declareer hier h1, h2, h3, h4 van het type Paard
                             //  Deze paarden instantieer je later in het programma
     private JButton button; //(3) Declareer een button met de naam button van het type JButton
     private JPanel panel;
@@ -49,7 +50,7 @@ public class Race extends JFrame implements ActionListener {
     /** Applicatie - main functie voor runnen applicatie */
     public static void main(String[] args) {
         Race frame = new Race();
-        frame.setSize(400,150);/* (4) Geef het frame een breedte van 400 en hoogte van 150 */
+        frame.setSize(400,180);/* (4) Geef het frame een breedte van 400 en hoogte van 150 */
         frame.createGUI();
         frame.setVisible(true);
     }
@@ -60,7 +61,7 @@ public class Race extends JFrame implements ActionListener {
         panel.setBackground(Color.white);
         /** Tekenen van de finish streep */
         g.setColor(Color.red);/* (5) Geef de finish streep een rode kleur */
-        g.fillRect(lengte, 0, 3, 100);
+        g.fillRect(lengte+10, 0, 3, 130);
         /**(6) Creatie van 4 paarden
          * Dit is een instantiering van de 4 paard objecten
          * Bij de instantiering geef je de paarden een naam en een kleur mee
@@ -70,15 +71,18 @@ public class Race extends JFrame implements ActionListener {
         h2 = new Paard("Moonshine",Color.cyan);
         h3 = new Paard("Amerigo", Color.pink);
         h4 = new Paard("Vlekje",Color.gray);
+        h5 = new Paard("Bonnie", Color.green);
         /** Loop tot een paard over de finish is*/
         while (h1.getAfstand() < lengte
                 && h2.getAfstand() < lengte
                 && h3.getAfstand() < lengte
-                && h4.getAfstand() < lengte) {
+                && h4.getAfstand() < lengte
+                && h5.getAfstand() < lengte) {
             h1.run();
             h2.run();
             h3.run();
             h4.run();
+            h5.run();
 
             /* (7) Voeg hier een aanroep van de methode pauzeer toe zodanig
              * dat er 1 seconde pauze is. De methode pauzeer is onderdeel
@@ -92,6 +96,7 @@ public class Race extends JFrame implements ActionListener {
             tekenPaard(g,h2);
             tekenPaard(g,h3);
             tekenPaard(g,h4);
+            tekenPaard(g,h5);
         }
         /** Kijk welk paard gewonnen heeft
          */
@@ -107,6 +112,9 @@ public class Race extends JFrame implements ActionListener {
         if (h4.getAfstand() > lengte) {
             JOptionPane.showMessageDialog(null, h4.getNaam() + " gewonnen!");
         }
+        if (h5.getAfstand() > lengte) {
+        JOptionPane.showMessageDialog(null, h5.getNaam() + " gewonnen!");
+        }
     }
 
     /** Creatie van de GUI*/
@@ -115,7 +123,7 @@ public class Race extends JFrame implements ActionListener {
         Container window = getContentPane();
         window.setLayout(new FlowLayout());
         panel = new JPanel();
-        panel.setPreferredSize(new Dimension(300, 100));
+        panel.setPreferredSize(new Dimension(300, 130));
         panel.setBackground(Color.white);
         window.add(panel);
         button = new JButton("Run!");
